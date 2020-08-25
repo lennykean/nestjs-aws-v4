@@ -69,5 +69,4 @@ export class AppService {
     return this.http.get(...);
   }
 }
-});
 ```
