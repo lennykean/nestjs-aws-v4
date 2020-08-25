@@ -1,5 +1,7 @@
 # NestJS AWS v4
 
+[![npm version](https://img.shields.io/npm/v/nestjs-aws-v4.svg?style=flat-square)](https://www.npmjs.com/package/nestjs-aws-v4)
+
 A [NestJS](https://nestjs.com/) http client library with automatic AWS v4 request signing. This is useful for, among other things, IAM authorization in AWS API Gateway.
 
 # Installation
