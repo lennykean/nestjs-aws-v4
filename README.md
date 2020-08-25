@@ -12,7 +12,7 @@ npm install --save nestjs-aws-v4
 
 ## Module
 
-By default, requests are signed with IAM credentials from environment variables (`AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, etc) which are automatically provided in most AWS code execution environments, like Lambda.
+By default, requests are signed with IAM credentials and region from environment variables (`AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_REGION`). These variables are automatically provided in most AWS code execution environments, like Lambda.
 
 Simply importing the module will use these default settings.
 
@@ -28,7 +28,9 @@ export class AppModule {}
 
 ### Configuration
 
-`AwsV4HttpModule` has all the same configuration options as `HttpModule`, as well as additional parameters to override credentials and control the signing process.
+`AwsV4HttpModule` has the same configuration options as `HttpModule`, as well as additional parameters to override credentials and control the signing process.
+
+**Note:** When using with an API Gateway url (i.e. `https://{api_gw_id}.execute-api.us-east-1.amazonaws.com/{stage}`), the service will automatically be inferred as **execute-api**. If you are using an API Gateway custom domain, you must specify `{ service: 'execute-api' }'`.
 
 ```typescript
 import { Module } from '@nestjs/common';
@@ -37,6 +39,8 @@ import { AwsV4HttpModule } from 'nestjs-aws-v4';
 @Module({
   imports: [
     AwsV4HttpModule.register({
+      region: 'us-east-1',
+      service: 'execute-api'
       credentials: {
         accessKeyId: '...',
         secretAccessKey: '...',

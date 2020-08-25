@@ -3,6 +3,14 @@
   "version": "1.0.0",
   "description": "NestJS http client library with automatic aws v4 request signing",
   "author": "Lenny Kean",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lennykean/nestjs-aws-v4"
+  },
+  "homepage": "https://github.com/lennykean/nestjs-aws-v4",
+  "bugs": {
+    "url": "https://github.com/lennykean/nestjs-aws-v4/issues"
+  },
   "license": "MIT",
   "files": [
     "dist"
@@ -10,8 +18,14 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "keywords": [
+    "nest",
     "nestjs",
     "nest",
+    "aws4",
+    "awsv4",
+    "api gateway",
+    "apigateway",
+    "signature",
     "nest aws v4",
     "nestjs aws v4",
     "nest aws v4 signing",
