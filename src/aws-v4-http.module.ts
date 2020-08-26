@@ -13,7 +13,7 @@ import { AWS_V4_HTTP_MODULE_OPTIONS } from './constants';
 
 export type AwsV4HttpModuleOptions = HttpModuleOptions &
   InterceptorOptions & {
-    credentials: Credentials;
+    credentials?: Credentials;
   };
 
 @Module({
