@@ -34,6 +34,8 @@ export class AppModule {}
 
 **Note:** When using with an API Gateway url (i.e. `https://{api_gw_id}.execute-api.us-east-1.amazonaws.com/{stage}`), the service will automatically be inferred as **execute-api**. If you are using an API Gateway custom domain, you must specify `{ service: 'execute-api' }`.
 
+#### Register
+
 ```typescript
 import { Module } from '@nestjs/common';
 import { AwsV4HttpModule } from 'nestjs-aws-v4';
@@ -49,6 +51,31 @@ import { AwsV4HttpModule } from 'nestjs-aws-v4';
       },
     }),
   ],
+})
+export class AppModule {}
+```
+
+#### RegisterAsync
+
+Sometimes, it may be necessary to use a factory to build your configuration. For instance, you may need to inject a configuration service. This can be done with the `registerAsync` method.
+
+```typescript
+@Module({
+  imports: [
+    AwsV4HttpModule.registerAsync({
+      imports: [ConfigModule.forRoot()],
+      useFactory: async (config: ConfigService) => ({
+        region: await config.get('REGION'),
+        credentials: {
+          accessKeyId: await config.get('ACCESS_KEY_ID'),
+          secretAccessKey: await config.get('SECRET_ACCESS_KEY'),
+        },
+      }),
+      inject: [ConfigService],
+    }),
+  ],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}
 ```
