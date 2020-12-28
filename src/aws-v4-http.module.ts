@@ -1,8 +1,10 @@
 import {
   DynamicModule,
+  FactoryProvider,
   HttpModule,
   HttpModuleOptions,
   Module,
+  ModuleMetadata,
 } from '@nestjs/common';
 import { AXIOS_INSTANCE_TOKEN } from '@nestjs/common/http/http.constants';
 import { Credentials, InterceptorOptions } from 'aws4-axios/dist/interceptor';
@@ -41,6 +43,32 @@ export class AwsV4HttpModule {
         {
           provide: AWS_V4_HTTP_MODULE_OPTIONS,
           useValue: config,
+        },
+      ],
+      exports: [AwsV4HttpService],
+    };
+  }
+  static registerAsync(
+    config?: Omit<
+      FactoryProvider<AwsV4HttpModuleOptions | Promise<AwsV4HttpModuleOptions>>,
+      'provide'
+    > &
+      Pick<ModuleMetadata, 'imports'>,
+  ): DynamicModule {
+    return {
+      module: AwsV4HttpModule,
+      imports: [HttpModule, ...config.imports],
+      providers: [
+        AwsV4HttpService,
+        {
+          provide: AXIOS_INSTANCE_TOKEN,
+          useFactory: (config) => Axios.create(config),
+          inject: [AWS_V4_HTTP_MODULE_OPTIONS],
+        },
+        {
+          provide: AWS_V4_HTTP_MODULE_OPTIONS,
+          useFactory: config.useFactory,
+          inject: config.inject,
         },
       ],
       exports: [AwsV4HttpService],
