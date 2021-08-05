@@ -1,7 +1,7 @@
 import { HttpService, Inject, Injectable, Optional } from '@nestjs/common';
 import { AXIOS_INSTANCE_TOKEN } from '@nestjs/common/http/http.constants';
 import { aws4Interceptor } from 'aws4-axios/dist/interceptor';
-import { AxiosRequestConfig, AxiosInstance } from 'axios';
+import { AxiosInstance } from 'axios';
 
 import { AwsV4HttpModuleOptions } from './aws-v4-http.module';
 import { AWS_V4_HTTP_MODULE_OPTIONS } from './constants';
